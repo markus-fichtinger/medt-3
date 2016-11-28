@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>MEDT - Beispieil 1</title>
+	<meta charset="UTF-8">
 </head>
 <body>
 
