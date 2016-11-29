@@ -3,15 +3,34 @@
 <head>
 	<title>MEDT - Beispieil 1</title>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="C:\Users\Markus\Downloads\bootstrap-3.3.7-dist\css\bootstrap.min.css">
+
+	<style>
+
+  		li:nth-of-type(odd) {
+  			background-color: #D8D8D8;
+  		}
+
+  		li:nth-of-type(even) {
+  			background-color: #FAFAFA;
+  		}
+
+  		ul {
+  			list-style-type: square;
+  		}
+
+  	</style>
+
 </head>
 <body>
 
+	<div class="container">
 	<h1>Beispiel 1</h1>
 
 	<form method="post">
 
 	Ihre Eingabe:
-	<input type="text" name="txt">
+	<input type="text" name="txt" value="Das ist ein Demo-Satz">
 
 	<br><br>
 
@@ -41,6 +60,8 @@
 	}
 
 	?>
+
+	</div>
 
 </body>
 </html>
