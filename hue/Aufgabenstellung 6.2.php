@@ -37,9 +37,9 @@
 	<h3 style="color: blue;">Wir freuen uns auf Ihre Anfrage!</h3>
 
 	<p>Der Grund für Ihre Anfrage</p>
-	<input type="radio" name="grund" value="fs">Freie Stellen<br>
-	<input type="radio" name="grund" value="pr">Produktreklamation<br>
-	<input type="radio" name="grund" value="pn">Produktneuheiten<br><br>
+	<input type="radio" name="reason" value="fs">Freie Stellen<br>
+	<input type="radio" name="reason" value="pr">Produktreklamation<br>
+	<input type="radio" name="reason" value="pn">Produktneuheiten<br><br>
 
 	Anrede* <input type="radio" name="geschlecht" value="frau" required>Frau 
 	<input type="radio" name="geschlecht" value="herr" required>Herr
@@ -63,7 +63,7 @@
 		<input type="text" name="telefonnummer"><br>
 		E-Mail:    
 		<input type="email" name="email"><br>
-		Anfrage:
+		Anfrage*:
 		<textarea name="textarea"></textarea>
 	</div>
 	<br><br>
