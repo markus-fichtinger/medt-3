@@ -11,6 +11,7 @@
 
 
 	echo $_SERVER['REQUEST_URI'];
+	echo "<br>";
 
 
 	$host = 'localhost';
@@ -44,8 +45,9 @@
 		$delete = $db->query("DELETE FROM project where id=$projectId");
 		//$delete -> execute(); //wird nicht benötigt
 
-		$tmp = true; // dynamisch
-		if ($tmp)
+		$count = $delete->rowCount();
+
+		if ($count == 1)
 			echo '<p class="bg-success">Das Projekt wurde erfolgreich gelöscht!</p>';
 
 		else
@@ -60,6 +62,15 @@
 		{
 			$edit = $db->query("UPDATE project SET name=\"".$_POST['Name']." \", description=\"".$_POST['Beschreibung']."\", createDate=\"".$_POST['Datum']."\" WHERE id=".$_POST['editProject']);
 			//$edit -> execute(); //wird nicht benötigt
+
+		$countEdit = $edit->rowCount();
+
+		if ($countEdit == 1)
+			echo '<p class="bg-success">Das Projekt wurde erfolgreich bearbeitet!</p>';
+
+		else
+			echo '<p class="bg-danger">Das Projekt konnte nicht bearbeitet werden</p>';
+
 		}
 		else {
 		$query = $db->query("SELECT * from project where id=".$_GET['editProject']);
