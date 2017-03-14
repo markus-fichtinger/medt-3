@@ -39,13 +39,16 @@
 
 	if (isset($_GET['deleteProject']))
 	{
-		/*echo "Löschen:  ".$_GET['deleteProject'];*/
+		$projectIdDelete = $_GET['deleteProject'];
+		//$delete = $db->query("DELETE FROM project where id=$projectId");
 
-		$projectId = $_GET['deleteProject'];
-		$delete = $db->query("DELETE FROM project where id=$projectId");
-		//$delete -> execute(); //wird nicht benötigt
+		$query = $db->prepare('DELETE FROM project WHERE id= :projectIdDelete');
+		$query->bindParam(':projectIdDelete', $_GET['deleteProject'], PDO::PARAM_INT);
+		$query->execute();
+		
+		$count = $query->rowCount();
 
-		$count = $delete->rowCount();
+		//$count = $delete->rowCount();
 
 		if ($count == 1)
 			echo '<p class="bg-success">Das Projekt wurde erfolgreich gelöscht!</p>';
@@ -60,23 +63,33 @@
 	{
 		if (isset($_POST['submitButton']))
 		{
-			$edit = $db->query("UPDATE project SET name=\"".$_POST['Name']." \", description=\"".$_POST['Beschreibung']."\", createDate=\"".$_POST['Datum']."\" WHERE id=".$_POST['editProject']);
+			$projectIdEdit = $_POST['editProject'];
+			$query2 = $db->prepare("UPDATE project SET name=:nam,description=:desc,createDate=:Date WHERE id=:projectIdEdit");
+			$query2->bindParam(':nam', $_POST['Name'], PDO::PARAM_STR);
+			$query2->bindParam(':desc', $_POST['Beschreibung'], PDO::PARAM_STR);
+			$query2->bindParam(':Date', $_POST['Datum']);
+			$query2->bindParam(':projectIdEdit', $projectIdEdit, PDO::PARAM_INT);
+			$query2->execute();
+
+			$countEdit = $query2->rowCount();
+
+			//$edit = $db->query("UPDATE project SET name=\"".$_POST['Name']."\", description=\"".$_POST['Beschreibung']."\", createDate=\"".$_POST['Datum']."\" WHERE id=\"".$_POST['editProject']."\"");
 			//$edit -> execute(); //wird nicht benötigt
 
-		$countEdit = $edit->rowCount();
+		//$countEdit = $edit->rowCount(); //Anzahl der Zeilen die bearbeitet wurden
 
 		if ($countEdit == 1)
-			echo '<p class="bg-success">Das Projekt wurde erfolgreich bearbeitet!</p>';
+			echo "<p class=\"bg-success\">Das Projekt wurde erfolgreich bearbeitet!</p>";
 
 		else
-			echo '<p class="bg-danger">Das Projekt konnte nicht bearbeitet werden</p>';
+			echo "<p class=\"bg-danger\">Das Projekt konnte nicht bearbeitet werden</p>";
 
-		}
-		else {
-		$query = $db->query("SELECT * from project where id=".$_GET['editProject']);
-		$data = $query -> fetch(PDO::FETCH_OBJ); // eine Zeile kommt zurück
+		
+}		else {
+		$query = $db->query("SELECT * from project where id=".$_GET['editProject']);	
+		$data = $query -> fetch(); // eine Zeile kommt echo
 
-		echo '<form action="#" method="POST" style="margin-top: 50px; margin-bottom: 50px; margin-left: 25%">';
+		echo "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\" style=\"margin-top: 50px; margin-bottom: 50px; margin-left: 25%\">";
 		echo "<input name=\"Name\" type=\"text\" value=\"$data->name\"><br>";
 		echo "<input name=\"Beschreibung\" type=\"text\" value=\"$data->description\"><br>";
 		echo "<input name=\"Datum\" type=\"date\" value=\"$data->createDate\"><br>";
@@ -89,6 +102,7 @@
 
 	?>
 
+
 	<h1>DATENBANK!</h1>
 
 	<table class="table table-striped">
@@ -98,32 +112,30 @@
 		<th>Project Description</th>
 		<th>User ID</th>
 		<th>Create Date</th>
-		<th></th>
 	</thead>
+
 
 	<?php
 
-	
-	
 
-	$i = 1;
 	foreach ($db->query($sql) as $item)
 	{
 		echo "<tr>";
 
-		?> <td class="col-xs-2 col-md-2"> <?php
-		echo $item->id;
+		?> <td class="col-xs-2,4 col-md-2,4" style="<?php echo $STYLE; ?>"> <?php
+		//echo $item->id;
+		echo "".$item->id."";
 		echo "</td>";
 
-		?> <td class="col-xs-2 col-md-2"> <?php
+		?> <td class="col-xs-2,4 col-md-2,4" style="<?php echo $STYLE; ?>"> <?php
 		echo $item->name;
 		echo "</td>";
 
-		?> <td class="col-xs-2 col-md-2"> <?php
+		?> <td class="col-xs-2,4 col-md-2,4" style="<?php echo $STYLE; ?>"> <?php
 		echo $item->description;
 		echo "</td>";
 
-		?> <td class="col-xs-2 col-md-2"> <?php
+		?> <td class="col-xs-2,4 col-md-2,4" style="<?php echo $STYLE; ?>"> <?php
 		echo $item->createDate;
 		echo "</td>";
 
@@ -131,7 +143,7 @@
 		echo $item->createDate;
 		echo "</td>";*/
 
-		?> <td class="col-xs-3 col-md-3"> <?php
+		?> <td class="col-xs-2,4 col-md-2,4"> <?php
 
 		echo "
 		<a href=\"index.php?editProject=$item->id\" style=\"margin-right: 15px;\"> <span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> </a>
@@ -141,6 +153,10 @@
 		echo "</td>";
 
 		echo "</tr>";
+
+		/* if ($item->l_successful == 0) {
+			
+		} */
 	}
 
 
@@ -162,10 +178,8 @@
 		$db = null;
 	}*/
 
-		
-	
-
 	?>
 
+	
 </body>
 </html>
