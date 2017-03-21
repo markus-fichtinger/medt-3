@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+pöo<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -103,8 +103,36 @@
 	?>
 
 
-	<h1>DATENBANK!</h1>
+	<h1>PROJEKTÜBERSICHT!</h1>
+	<hr>
 
+	<form method="post" action=<?php echo $_SERVER['PHP_SELF']; ?>> <input type="submit" name="submitButton2" value="Projekt erstellen"> </form> <br>
+
+	<?php
+
+	if (isset($_POST['submitButton2']))
+	{
+		echo "<h3><b>Neues Projekt</b></h3>";
+
+		echo "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\" style=\"margin-top: 50px; margin-bottom: 50px; margin-left: 25%\">";
+		echo "Name: <input name=\"Name\" type=\"text\"><br>";
+		echo "Beschreibung: <input name=\"Beschreibung\" type=\"text\"><br>";
+		echo "Datum: <input name=\"Datum\" type=\"date\"><br>";
+		echo "<input type=\"submit\" name=\"submitButton\"> <br>";
+		echo "</form>";
+
+		$query2 = $db->prepare("INSERT INTO project VALUES name=:nam,description=:desc,createDate=:Date");
+		$query2->bindParam(':nam', $_POST['Name'], PDO::PARAM_STR);
+		$query2->bindParam(':desc', $_POST['Beschreibung'], PDO::PARAM_STR);
+		$query2->bindParam(':Date', $_POST['Datum']);
+		$query2->execute();
+
+		//$query = $db->query("INSERT INTO project VALUES name=\"Name\",description=\"Beschreibung\",createDate=\"Datum\"");
+	}	
+
+	?>
+
+	<br><br>
 	<table class="table table-striped">
 	<thead>
 		<th>Project ID</th>
