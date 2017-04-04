@@ -45,11 +45,7 @@
 	<p style="text-align:center;">
 
 	
-
 	
-
-	<!--<a href="3xHIT_Bsp3-Pagination.php?AnzahlSeiten=0"> <span class="glyphicon glyphicon-step-backward"></span> </a>-->
-
 	<a href="3xHIT_Bsp3-Pagination.php?AnzahlSeiten=0"> <span class="glyphicon glyphicon-step-backward"></span> </a>
 
 	<a href="3xHIT_Bsp3-Pagination.php?AnzahlSeiten=<?php echo $count-$wievielSeiten < 0 ? 0 : $count-$wievielSeiten; ?>"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
