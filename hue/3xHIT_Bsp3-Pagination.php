@@ -6,6 +6,11 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<style>
+
+	</style>
+
 </head>
 <body>
 
@@ -59,7 +64,7 @@
 	</p>
 	<?php
 
-	echo "<table class=\"table tables-bordered\">";
+	echo "<table class=\"table table-striped\">";
 
 	echo "<thead>";
 		echo "<th>productCode</th>";
@@ -82,6 +87,8 @@
 		?> <td class="col-xs-4 col-md-4"> <?php
 		echo $item->productLine;
 		echo "</td>";
+
+		echo "</tr>";
 	}
 
 	echo "</table>";
